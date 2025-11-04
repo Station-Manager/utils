@@ -1,0 +1,43 @@
+package utils
+
+import (
+	"fmt"
+	"os"
+	"path/filepath"
+)
+
+const (
+	// EnvSmWorkingDir is the internal constant name for the environment variable name used to specify
+	// the working directory.
+	EnvSmWorkingDir = "SM_WORKING_DIR"
+)
+
+func WorkingDir(workingDir ...string) (string, error) {
+	var err error
+	var workDir string
+
+	if len(workingDir) > 0 {
+		workDir = workingDir[0]
+	} else {
+		if envDir := os.Getenv(EnvSmWorkingDir); envDir != emptyString {
+			workDir = envDir
+		} else if workDir, err = AbsDirPathForExecutable(); err != nil {
+			return emptyString, fmt.Errorf("failed to get executable directory: %w", err)
+		}
+	}
+
+	if workDir, err = filepath.Abs(workDir); err != nil {
+		return emptyString, fmt.Errorf("failed to determine absolute path of working directory: %w", err)
+	}
+
+	var exists bool
+	exists, err = PathExists(workDir)
+	if err != nil {
+		return emptyString, fmt.Errorf("failed checking if working directory exists: %w", err)
+	}
+	if !exists {
+		return emptyString, fmt.Errorf("working directory does not exist: %s", workDir)
+	}
+
+	return workDir, nil
+}
