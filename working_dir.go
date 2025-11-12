@@ -12,6 +12,8 @@ const (
 	EnvSmWorkingDir = "SM_WORKING_DIR"
 )
 
+// WorkingDir determines the working directory path, prioritizing function argument, environment variable, or executable location.
+// It validates the directory exists and returns an absolute path or an error if validation fails.
 func WorkingDir(workingDir ...string) (string, error) {
 	var err error
 	var workDir string
