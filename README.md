@@ -1,3 +1,3 @@
-# Station Manager: utils module
+# Station Manager: utils package
 
-This module contains various stand-alone utils used by various 7Q-Station-Manager applications.
+This module contains various stand-alone utils used by various modules/pacakges in the *Station Manager* application suite.
