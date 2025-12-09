@@ -4,7 +4,7 @@ go 1.25
 
 require (
 	github.com/goccy/go-json v0.10.5
-	golang.org/x/net v0.47.0
+	golang.org/x/net v0.48.0
 )
 
-require golang.org/x/text v0.31.0 // indirect
+require golang.org/x/text v0.32.0 // indirect
