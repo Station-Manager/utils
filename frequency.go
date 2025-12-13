@@ -111,32 +111,18 @@ func FormatFrequencyToMhz(rawFreq string) (string, error) {
 	}
 }
 
-// IsValidFrequencyMHz validates that the given string is a valid ADIF frequency value in MHz format.
-// ADIF specifies FREQ/FREQ_RX in MHz with up to 6 digits after the decimal point. Examples of valid values:
-//
-//	7, 7.0, 7.050, 14.074, 144.390000
-//
-// Rules enforced:
-//   - One to four digits for the integer part (allows HF and VHF/UHF ranges)
-//   - Optional decimal point followed by 1 to 6 digits
-//   - No leading sign, no thousand separators, no trailing dot
-//   - Parsed numeric value must be > 0
 func IsValidFrequencyMHz(s string) bool {
 	s = strings.TrimSpace(s)
 	if s == emptyString {
 		return false
 	}
-	// Precompile lazily: small project, compile here for simplicity
-	re := regexp.MustCompile(`^\d{1,4}(?:\.\d{1,6})?$`)
+	re := regexp.MustCompile(`^\d{7,8}$`)
 	if !re.MatchString(s) {
 		return false
 	}
-	f, err := strconv.ParseFloat(s, 64)
+	f, err := strconv.ParseInt(s, 10, 64)
 	if err != nil {
 		return false
 	}
-	if f <= 0 {
-		return false
-	}
-	return true
+	return f > 0
 }
