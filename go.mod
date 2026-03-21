@@ -1,10 +1,10 @@
 module github.com/Station-Manager/utils
 
-go 1.25
+go 1.25.0
 
 require (
-	github.com/goccy/go-json v0.10.5
-	golang.org/x/net v0.50.0
+	github.com/goccy/go-json v0.10.6
+	golang.org/x/net v0.52.0
 )
 
-require golang.org/x/text v0.34.0 // indirect
+require golang.org/x/text v0.35.0 // indirect
